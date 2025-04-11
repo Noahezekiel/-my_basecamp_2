@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  # Resourceful routes
+  resources :projects do
+    resources :attachments, only: [:create, :destroy]
+    resources :threads do
+      resources :messages, only: [:new, :create, :destroy]
+    end
+  end
   resources :users
-  resources :projects
-
   # Dashboards (separate for user and admin)
   get 'dashboard', to: 'dashboard#show', as: 'user_dashboard'
   get 'admin_dashboard', to: 'dashboard#admin', as: 'admin_dashboard'
