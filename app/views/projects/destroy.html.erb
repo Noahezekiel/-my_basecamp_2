@@ -1,2 +1,31 @@
-<h1>Projects#destroy</h1>
-<p>Find me in app/views/projects/destroy.html.erb</p>
+<!-- app/views/projects/delete.html.erb -->
+
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
+  <div class="text-2xl font-bold">
+    <%= link_to 'MyBaseCamp', user_dashboard_path, class: "hover:underline" %>
+  </div>
+  <div class="space-x-4">
+    <%= link_to 'Home', user_dashboard_path, class: "hover:underline" %>
+    <%= link_to 'Logout', login_path, class: "hover:underline" %>
+  </div>
+</nav>
+
+<!-- Delete Confirmation Section -->
+<div class="max-w-xl mx-auto mt-16 px-4">
+  <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+    <h1 class="text-2xl font-bold text-red-600 mb-4">Delete Project</h1>
+    <p class="text-gray-700 mb-6">
+      Are you sure you want to permanently delete the project <strong>"<%= @project.title %>"</strong>?
+    </p>
+
+    <div class="flex justify-center space-x-6">
+      <%= link_to "Cancel", project_path(@project), class: "px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300" %>
+
+      <%= link_to "Delete", project_path(@project), 
+            method: :delete, 
+            data: { confirm: "This will permanently delete the project. Are you sure?" }, 
+            class: "px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700" %>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,40 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<!-- app/views/users/edit.html.erb -->
+
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
+  <div class="text-2xl font-bold">
+    <%= link_to 'MyBaseCamp', user_dashboard_path, class: "hover:underline" %>
+  </div>
+  <div class="space-x-4">
+    <%= link_to 'Home', user_dashboard_path, class: "hover:underline" %>
+    <%= link_to 'Logout', login_path, class: "hover:underline" %>
+  </div>
+</nav>
+
+<!-- User Profile Edit Form -->
+<div class="max-w-xl mx-auto mt-12 px-4">
+  <div class="bg-white p-8 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6">Edit Your Profile</h2>
+
+    <%= form_with model: @user, local: true, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, class: "w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Your Name" %>
+      </div>
+
+      <div>
+        <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.email_field :email, class: "w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "you@example.com" %>
+      </div>
+
+      <div>
+        <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
+        <%= form.password_field :password, class: "w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "New Password (leave blank to keep current)" %>
+      </div>
+
+      <div class="pt-4">
+        <%= form.submit "Update Profile", class: "w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700" %>
+      </div>
+    <% end %>
+  </div>
+</div>

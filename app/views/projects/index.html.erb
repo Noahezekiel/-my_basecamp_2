@@ -1,20 +1,38 @@
 <!-- app/views/projects/index.html.erb -->
-# List all projects the user is associated with.
 
-<h1 class="text-3xl font-semibold text-center mb-6">Your Projects</h1>
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow-md">
+  <!-- Logo -->
+  <div class="text-2xl font-bold">
+    <%= link_to 'MyBaseCamp', user_dashboard_path, class: "hover:underline" %>
+  </div>
 
-<div class="space-y-4">
-  <% @projects.each do |project| %>
-    <div class="bg-white p-4 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold"><%= project.title %></h3>
-      <p class="text-gray-600 mt-2"><%= project.description %></p>
-      <div class="mt-4 flex justify-between">
-        <%= link_to 'Show', project_path(project), class: "text-blue-600 hover:underline" %>
-        <%= link_to 'Edit', edit_project_path(project), class: "text-yellow-600 hover:underline" %>
-        <%= link_to 'Delete', project_path(project), method: :delete, class: "text-red-600 hover:underline" %>
+  <!-- Nav Links -->
+  <div class="flex items-center space-x-6">
+    <%= link_to 'Home', user_dashboard_path, class: "hover:underline font-medium" %>
+    <%= button_to 'Logout', logout_path, method: :delete, class: "bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md font-semibold text-white transition duration-200" %>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="max-w-4xl mx-auto mt-10 px-4">
+  <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Your Projects</h1>
+
+  <div class="space-y-6">
+    <% @projects.each do |project| %>
+      <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+        <h3 class="text-2xl font-semibold text-gray-900"><%= project.title %></h3>
+        <p class="text-gray-600 mt-2"><%= project.description %></p>
+        <div class="flex gap-4">
+          <%= link_to 'Show', project_path(project), class: "text-blue-600 hover:underline font-medium py-2 px-4 rounded-lg" %>
+          <%= link_to 'Edit', edit_project_path(project), class: "text-yellow-600 hover:underline font-medium py-2 px-4 rounded-lg" %>
+          <%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:underline font-medium py-2 px-4 rounded-lg" %>
       </div>
-    </div>
-  <% end %>
-</div>
+      </div>
+    <% end %>
+  </div>
 
-<%= link_to 'Create New Project', new_project_path, class: "mt-6 text-center block text-blue-600 hover:underline" %>
+  <div class="mt-10 text-center">
+    <%= link_to 'Create New Project', new_project_path, class: "inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200" %>
+  </div>
+</div>

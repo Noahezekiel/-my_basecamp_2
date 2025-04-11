@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
   def show
     if current_user.admin?
       # If the current user is an admin, render the admin dashboard
+      @users = User.all
       render 'admin_dashboard'
     else
       # Otherwise, render the user dashboard
