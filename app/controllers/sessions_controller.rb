@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to user
+      redirect_to current_user.admin? ? admin_dashboard_path : user_dashboard_path
     else
       flash[:alert] = "Invalid email or password"
       render :new
@@ -16,4 +16,7 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_path
   end
+  def new
+    
+  end 
 end

@@ -15,15 +15,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-<<<<<<< HEAD
   username: my_basecamp_user
   password: 'let me in'
   host: localhost
   port: 5432
-=======
->>>>>>> f395ab7dfe4d0789574aeeaece20a9f30f198d05
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 
