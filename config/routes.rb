@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   get "home/index"
+
   resources :projects do
     resources :attachments, only: [:create, :destroy]
-    resources :threads do
+    resources :project_threads, path: 'threads' do
       resources :messages, only: [:new, :create, :destroy]
     end
   end
+
   resources :users
-  
+
   # Dashboard route (renders the same view based on user role)
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get 'about', to: 'home#about'
