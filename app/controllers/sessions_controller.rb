@@ -3,9 +3,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
+
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to current_user.admin? ? admin_dashboard_path : user_dashboard_path
+      # Redirect to the same 'dashboard' path, which will handle role-based rendering
+      redirect_to dashboard_path
     else
       flash[:alert] = "Invalid email or password"
       render :new

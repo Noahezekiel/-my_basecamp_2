@@ -1,0 +1,127 @@
+<!-- app/views/admin/dashboard.html.erb 
+<% if current_user.admin? %>
+  <!-- Admin Content -->
+  <div class="max-w-7xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Welcome to the Admin Dashboard, <%= current_user.name %> 👑</h1>
+    <p class="text-gray-700 mb-6">Manage users, projects, and other admin tasks below.</p>
+
+    <!-- Admin Users Table -->
+    <div class="mb-10">
+      <h2 class="text-2xl font-semibold mb-4">Registered Users</h2>
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Email</th>
+            <th class="py-2 px-4 border-b">Role</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr class="hover:bg-gray-50">
+              <td class="py-2 px-4 border-b"><%= user.name %></td>
+              <td class="py-2 px-4 border-b"><%= user.email %></td>
+              <td class="py-2 px-4 border-b capitalize"><%= user.role %></td>
+              <td class="py-2 px-4 border-b space-x-2">
+                <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white px-3 py-1 rounded" %>
+                <% if user.admin? %>
+                  <%= button_to 'Remove Admin', remove_admin_path(user), method: :post, class: "bg-yellow-500 text-white px-3 py-1 rounded" %>
+                <% else %>
+                  <%= button_to 'Make Admin', set_admin_path(user), method: :post, class: "bg-green-600 text-white px-3 py-1 rounded" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>-->
+
+<!-- app/views/admin/dashboard.html.erb -->
+<% if current_user&.admin? %>
+  <!-- Admin Dashboard -->
+  <div class="max-w-7xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-bold mb-6">Welcome to the Admin Dashboard, <%= current_user.name %> 👑</h1>
+    <p class="text-gray-700 mb-6">Manage users, projects, and other admin tasks below.</p>
+
+    <!-- Admin Users Table -->
+    <div class="mb-10">
+      <h2 class="text-2xl font-semibold mb-4">Registered Users</h2>
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead class="bg-gray-100 text-left">
+          <tr>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Email</th>
+            <th class="py-2 px-4 border-b">Role</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr class="hover:bg-gray-50">
+              <td class="py-2 px-4 border-b"><%= user.name %></td>
+              <td class="py-2 px-4 border-b"><%= user.email %></td>
+              <td class="py-2 px-4 border-b capitalize"><%= user.role %></td>
+              <td class="py-2 px-4 border-b space-x-2">
+                <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 text-white px-3 py-1 rounded" %>
+                <% if user.admin? %>
+                  <%= button_to 'Remove Admin', remove_admin_path(user), method: :post, class: "bg-yellow-500 text-white px-3 py-1 rounded" %>
+                <% else %>
+                  <%= button_to 'Make Admin', set_admin_path(user), method: :post, class: "bg-green-600 text-white px-3 py-1 rounded" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<% elsif current_user %>
+  <!-- User Dashboard -->
+  <div class="container mt-5 pt-5">
+    <div class="bg-white shadow rounded p-4 mt-5">
+      <h1 class="h3 fw-bold mb-4">Welcome, <%= current_user.name %> 👋</h1>
+
+      <p class="text-muted mb-4">This is your personal dashboard. View your projects, manage your profile, and stay on top of your work.</p>
+
+      <div class="row g-4">
+        <!-- Projects Box -->
+        <div class="col-md-6">
+          <div class="p-4 border rounded bg-light">
+            <h2 class="h5 fw-semibold mb-2">Your Projects</h2>
+            <p class="text-muted">Manage all your current projects in one place.</p>
+            <%= link_to 'View All Projects', projects_path, class: "text-primary text-decoration-none fw-semibold" %>
+          </div>
+        </div>
+
+        <!-- Account Info Box -->
+        <div class="col-md-6">
+          <div class="p-4 border rounded bg-light">
+            <h2 class="h5 fw-semibold mb-2">Account Info</h2>
+            <p class="text-muted mb-1">Email: <span class="fw-medium"><%= current_user.email %></span></p>
+            <%= link_to 'Edit Profile', edit_user_path(current_user), class: "text-primary text-decoration-none fw-semibold" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <!-- Guest View -->
+  <div class="bg-white py-16 px-6 text-center">
+    <h1 class="text-4xl font-bold mb-4">Welcome to MyBaseCamp!</h1>
+    <p class="text-lg text-gray-600 mb-6">Organize your team’s work, files, and communication in one place.</p>
+    <%= link_to "Sign Up", new_user_registration_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition" %>
+    <span class="mx-2 text-gray-500">or</span>
+    <%= link_to "Log In", new_user_session_path, class: "inline-block text-blue-600 font-semibold hover:underline" %>
+
+    <!-- Optional: Add image or call-to-action section -->
+    <div class="mt-10">
+      <img src="/assets/team_collab.svg" alt="Team collaboration" class="mx-auto max-w-md">
+    </div>
+  </div>
+<% end %>
+

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "home/index"
   resources :projects do
     resources :attachments, only: [:create, :destroy]
     resources :threads do
@@ -6,9 +7,11 @@ Rails.application.routes.draw do
     end
   end
   resources :users
-  # Dashboards (separate for user and admin)
-  get 'dashboard', to: 'dashboard#show', as: 'user_dashboard'
-  get 'admin_dashboard', to: 'dashboard#admin', as: 'admin_dashboard'
+  
+  # Dashboard route (renders the same view based on user role)
+  get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+  get 'about', to: 'home#about'
+  get 'contact', to: 'home#contact'
 
   # Sessions
   get "/login", to: "sessions#new"
@@ -19,6 +22,6 @@ Rails.application.routes.draw do
   post "/users/:id/set_admin", to: "users#set_admin", as: "set_admin"
   post "/users/:id/remove_admin", to: "users#remove_admin", as: "remove_admin"
 
-  # Root
-  root "sessions#new"
+  # Root route
+  root "home#index"
 end

@@ -1,36 +1,37 @@
-<!-- app/views/projects/new.html.erb -->
-
-<!-- Navbar -->
-<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center shadow-lg">
-  <!-- Logo -->
-  <div class="text-2xl font-bold">
-    <%= link_to 'MyBaseCamp', user_dashboard_path, class: "hover:underline" %>
-  </div>
-
-  <!-- Nav Links -->
-  <div class="flex items-center space-x-6">
-    <%= link_to 'Home', user_dashboard_path, class: "hover:underline font-medium" %>
-    <%= button_to 'Logout', logout_path, method: :delete, class: "bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md font-semibold text-white transition duration-200" %>
-  </div>
-</nav>
 
 <!-- Main Content -->
-<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-  <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Create a New Project</h2>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
 
-  <%= form_with model: @project, local: true do |form| %>
-    <div class="mb-5">
-      <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_field :title, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Project Title" %>
-    </div>
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center text-primary fw-bold mb-3">Create a New Project</h2>
+          <p class="text-center text-muted mb-4">Start something amazing by creating a new project</p>
 
-    <div class="mb-5">
-      <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
-      <%= form.text_area :description, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Project Description", rows: 5 %>
-    </div>
+          <%= form_with model: @project, local: true do |form| %>
 
-    <div>
-      <%= form.submit "Create Project", class: "w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none transition duration-200" %>
+            <!-- Title Field -->
+            <div class="mb-4">
+              <%= form.label :title, class: "form-label fw-semibold" %>
+              <%= form.text_field :title, class: "form-control rounded-3 p-2", placeholder: "Project Title" %>
+            </div>
+
+            <!-- Description Field -->
+            <div class="mb-4">
+              <%= form.label :description, class: "form-label fw-semibold" %>
+              <%= form.text_area :description, class: "form-control rounded-3 p-2", placeholder: "Project Description", rows: 5 %>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid mt-4">
+              <%= form.submit "Create Project", class: "btn btn-primary btn-lg rounded-pill" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+
     </div>
-  <% end %>
+  </div>
 </div>

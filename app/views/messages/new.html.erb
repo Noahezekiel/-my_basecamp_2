@@ -1,0 +1,9 @@
+<h2>Post a New Message</h2>
+
+<%= form_with model: @message, local: true do |form| %>
+  <%= form.label :content %>
+  <%= form.text_area :content %>
+
+  <%= form.submit "Post Message" %>
+<% end %>
+

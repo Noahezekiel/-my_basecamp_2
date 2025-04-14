@@ -1,38 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= content_for(:title) || "My Basecamp 2" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for(:title) || "MyBaseCamp" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <!-- Import Bootstrap CSS -->
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% flash.each do |key, message| %>
-      <div class="max-w-xl mx-auto mt-4 px-4">
-        <div class="<%= flash_class(key) %> px-4 py-3 rounded-lg shadow-md">
-          <%= message %>
+    <% if current_user %>
+      <% if current_user.admin? %>
+        <!-- Admin Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container-fluid">
+            <%= link_to "AdminBaseCamp", dashboard_path, class: "navbar-brand" %>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <%= link_to "Home", dashboard_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Projects", projects_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-danger" %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <% else %>
+        <!-- User Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <%= link_to "MyBaseCamp", dashboard_path, class: "navbar-brand" %>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <%= link_to "Home", dashboard_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Projects", projects_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= button_to 'Logout', logout_path, method: :delete, class: "btn btn-danger" %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <% end %>
+    <% else %>
+      <!-- Guest Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <%= link_to "MyBaseCamp", root_path, class: "navbar-brand" %>
+          
+
+          <!-- Toggle Button for Mobile -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#guestNavbar" aria-controls="guestNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Nav Links -->
+          <div class="collapse navbar-collapse" id="guestNavbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <%= link_to "About Us", about_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Contact Us", contact_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Login", login_path, class: "btn btn-outline-primary me-2" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign Up", new_user_path, class: "btn btn-primary" %>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
     <% end %>
 
-    <main class="">
+    <!-- Main Content -->
+    <main class="container mt-5">
       <%= yield %>
     </main>
+
+    <!-- Optional: Add Bootstrap JS -->
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
   </body>
 </html>

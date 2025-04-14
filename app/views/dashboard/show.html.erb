@@ -1,0 +1,88 @@
+<!-- app/views/dashboard/show.html.erb -->
+
+<% if current_user&.admin? %>
+  <!-- Admin Dashboard -->
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h3 mb-4">Welcome to the Admin Dashboard, <%= current_user.name %> 👑</h1>
+        <p class="text-muted mb-4">Manage users, projects, and other admin tasks below.</p>
+
+        <!-- Admin Users Table -->
+        <h2 class="h4 mb-3">Registered Users</h2>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td class="text-capitalize"><%= user.role %></td>
+                  <td>
+                    <div class="d-flex flex-wrap gap-2">
+                      <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+                      <% if user.admin? %>
+                        <%= button_to 'Remove Admin', remove_admin_path(user), method: :post, class: "btn btn-sm btn-warning text-white" %>
+                      <% else %>
+                        <%= button_to 'Make Admin', set_admin_path(user), method: :post, class: "btn btn-sm btn-success" %>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% elsif current_user %>
+  <!-- User Dashboard -->
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h3 mb-3">Welcome, <%= current_user.name %> 👋</h1>
+        <p class="text-muted mb-4">This is your personal dashboard. View your projects, manage your profile, and stay on top of your work.</p>
+
+        <div class="row">
+          <!-- Projects Box -->
+          <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Your Projects</h5>
+                <p class="card-text">Manage all your current projects in one place.</p>
+                <%= link_to 'View All Projects', projects_path, class: "btn btn-outline-primary" %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Info Box -->
+          <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Account Info</h5>
+                <p class="card-text mb-2">Email: <strong><%= current_user.email %></strong></p>
+                <%= link_to 'Edit Profile', edit_user_path(current_user), class: "btn btn-outline-secondary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <!-- Guest View -->
+  <div class="text-center py-5">
+   
+  </div>
+<% end %>

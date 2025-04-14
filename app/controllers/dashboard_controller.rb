@@ -1,23 +1,15 @@
 # app/controllers/dashboard_controller.rb
-
 class DashboardController < ApplicationController
   before_action :require_user_logged_in
 
   def show
     if current_user.admin?
-      # If the current user is an admin, render the admin dashboard
       @users = User.all
-      render 'admin_dashboard'
     else
-      # Otherwise, render the user dashboard
-      render 'user_dashboard'
+      @projects = current_user.projects
     end
+    render 'show' # Always render the same dashboard view for both users and admins
   end
-
-  def admin
-    @users = User.all
-    render 'admin_dashboard'
-  end  
 
   private
 

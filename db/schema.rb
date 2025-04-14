@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_11_130800) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_135232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_130800) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_attachments_on_project_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "project_thread_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_thread_id"], name: "index_messages_on_project_thread_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "project_threads", force: :cascade do |t|
@@ -36,6 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_130800) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -50,6 +61,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_11_130800) do
   end
 
   add_foreign_key "attachments", "projects"
+  add_foreign_key "messages", "project_threads"
+  add_foreign_key "messages", "users"
   add_foreign_key "project_threads", "projects"
   add_foreign_key "projects", "users"
 end

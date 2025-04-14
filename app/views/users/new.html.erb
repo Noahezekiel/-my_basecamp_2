@@ -1,32 +1,47 @@
 <!-- app/views/users/new.html.erb -->
-<!--To create a new user account.-->
+<div class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+  <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 550px; width: 100%;">
+    <div class="card-body">
+      <h2 class="text-center text-primary fw-bold mb-3">Join MyBaseCamp</h2>
+      <p class="text-center text-muted mb-4">
+        Organize work, messages & files in one calm space.
+      </p>
 
-<%= form_with model: @user, local: true, class: "max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg" do |form| %>
-  <h2 class="text-2xl font-bold text-center mb-6">Create Your Account</h2>
-  
-  <div class="mb-4">
-    <%= form.label :name, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.text_field :name, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Enter your name" %>
+      <%= form_with model: @user, local: true do |form| %>
+        <!-- Name -->
+        <div class="mb-3">
+          <%= form.label :name, class: "form-label fw-semibold" %>
+          <%= form.text_field :name, placeholder: "Your full name", class: "form-control rounded-3 p-2" %>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <%= form.label :email, class: "form-label fw-semibold" %>
+          <%= form.email_field :email, placeholder: "you@example.com", class: "form-control rounded-3 p-2" %>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <%= form.label :password, class: "form-label fw-semibold" %>
+          <%= form.password_field :password, placeholder: "Create a password", class: "form-control rounded-3 p-2" %>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4">
+          <%= form.label :password_confirmation, class: "form-label fw-semibold" %>
+          <%= form.password_field :password_confirmation, placeholder: "Confirm password", class: "form-control rounded-3 p-2" %>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-grid">
+          <%= form.submit "Create Account", class: "btn btn-primary btn-lg rounded-pill" %>
+        </div>
+      <% end %>
+
+      <!-- Log in link -->
+      <div class="text-center mt-4">
+        <%= link_to "Already have an account? Log In", login_path, class: "text-decoration-none text-primary fw-semibold" %>
+      </div>
+    </div>
   </div>
-
-  <div class="mb-4">
-    <%= form.label :email, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.email_field :email, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Enter your email" %>
-  </div>
-
-  <div class="mb-4">
-    <%= form.label :password, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.password_field :password, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Create a password" %>
-  </div>
-
-  <div class="mb-4">
-    <%= form.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.password_field :password_confirmation, class: "w-full mt-2 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500", placeholder: "Confirm your password" %>
-  </div>
-
-  <div class="flex justify-between items-center">
-    <%= form.submit "Sign Up", class: "w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none" %>
-  </div>
-<%= link_to 'Already have an account? Sign In', login_path, class: "block text-center text-blue-600 mt-4 hover:underline" %>
-<% end %>
-
+</div>
