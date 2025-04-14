@@ -1,10 +1,9 @@
 <%= form_with(model: [@project, Attachment.new], local: true, html: { multipart: true }) do |form| %>
-  <div class="mb-4">
-    <%= form.label :file, class: "block text-sm font-medium text-gray-700" %>
-    <%= form.file_field :file, class: "mt-1 block w-full" %>
-  </div>
+  <div class="input-group mb-3">
+    <!-- File input -->
+    <%= form.file_field :file, class: "form-control", id: "inputGroupFile" %>
 
-  <div class="mt-4">
-    <%= form.submit "Upload", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <!-- Upload button -->
+    <%= form.submit "Upload", class: "btn btn-primary" %>
   </div>
 <% end %>
