@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :edit, :update, :set_admin, :remove_admin]
+  before_action :authorize_admin!, only: [:set_admin, :remove_admin]
 
   def new
     @user = User.new
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to edit_user_path(@user), notice: "Profile updated successfully."
+      redirect_to dashboard_path, notice: "Profile updated successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,11 +43,19 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
+  def authorize_admin!
+    redirect_to root_path, alert: "You’re not authorized." unless current_user&.admin?
+  end
+
   private
 
   def set_user
     @user = User.find(params[:id])
+    unless @user == current_user || current_user&.admin?
+      redirect_to dashboard_path, alert: "You’re not authorized to access this page."
+    end
   end
+  
 
   def user_params
     permitted = [:name, :email, :password, :password_confirmation]
