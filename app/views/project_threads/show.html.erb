@@ -1,0 +1,22 @@
+<!-- app/views/project_threads/show.html.erb -->
+
+<div class="container my-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-3"><%= @thread.title %></h2>
+      <p class="card-text"><%= @thread.description %></p>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h4>Messages</h4>
+    <% @thread.messages.each do |message| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <strong><%= message.user.name %></strong>
+          <p><%= message.body %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

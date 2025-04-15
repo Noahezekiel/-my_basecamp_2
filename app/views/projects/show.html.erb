@@ -1,5 +1,3 @@
-<!-- app/views/projects/show.html.erb -->
-
 <div class="container my-5">
 
   <!-- Project Header -->
@@ -44,13 +42,17 @@
     </div>
 
     <% if @project.project_threads.any? %>
-      <% @project.threads.each do |thread| %>
+      <% @project.project_threads.each do |thread| %>
         <div class="card mb-3 border-0 shadow-sm">
           <div class="card-body">
             <h5 class="card-title text-dark"><%= thread.title %></h5>
             <p class="card-text text-muted"><%= thread.description %></p>
 
-            <%= link_to "💬 View Messages", project_thread_path(@project, thread), class: "btn btn-outline-primary btn-sm mt-2" %>
+            <%= link_to "💬 View Messages", project_project_thread_path(@project, thread), class: "btn btn-outline-primary btn-sm mt-2" %>
+
+            <% if current_user == @project.user || current_user.admin? %>
+              <%= button_to "🗑️ Delete Thread", project_project_thread_path(@project, thread), method: :delete, data: { confirm: "Are you sure you want to delete this thread?" }, class: "btn btn-sm btn-outline-danger mt-2 ms-2" %>
+            <% end %>
           </div>
         </div>
       <% end %>

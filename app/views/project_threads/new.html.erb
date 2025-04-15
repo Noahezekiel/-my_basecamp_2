@@ -1,11 +1,15 @@
 <h2>Create a New Thread</h2>
 
-<%= form_with model: @thread, local: true do |form| %>
-  <%= form.label :title %>
-  <%= form.text_field :title %>
+<%= form_with model: [@project, @thread], local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
 
-  <%= form.label :content %>
-  <%= form.text_area :content %>
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 5 %>
+  </div>
 
-  <%= form.submit "Create Thread" %>
+  <%= form.submit "Create Thread", class: "btn btn-primary" %>
 <% end %>
