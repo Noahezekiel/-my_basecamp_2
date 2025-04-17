@@ -1,24 +1,35 @@
-# README
+# Welcome to MyBaseCamp2  
+***
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Task  
+TODO - Extend the MyBaseCamp1 project by adding collaboration features such as file attachments, discussion threads, and messages inside threads.  
+The challenge is to manage user permissions and roles, enable secure file uploads, and create a smooth user experience while keeping the project organized and scalable.
 
-Things you may want to cover:
+## Description  
+TODO - This project builds upon MyBaseCamp1 by introducing:
+- **Attachments**: Any user associated with a project can upload files (png, jpg, pdf, txt).
+- **Threads**: Only project admins can start new discussion threads inside a project.
+- **Messages**: Any project user can post messages inside a thread.
+These features encourage collaboration and communication inside each project. We use Ruby on Rails, Tailwind CSS for styling, and ActiveStorage for file handling. The app is hosted in the cloud with role-based access controls.
 
-* Ruby version
+## Installation  
+TODO - Clone the repo and install dependencies:
 
-* System dependencies
+```bash
+git clone https://github.com/yourusername/mybasecamp2.git
+cd mybasecamp2
+bundle install
+yarn install
+bin/rails db:setup
 
-* Configuration
+## Usage
+TODO - How does it work?
+```
+./my_project argument1 argument2
+```
 
-* Database creation
+### The Core Team
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+<span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
+<span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px' /></span>
