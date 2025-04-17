@@ -1,0 +1,7 @@
+<%= form_with(url: project_project_thread_messages_path(project, thread), local: true) do |f| %>
+  <div class="mb-3">
+    <%= f.label :content, "Write your message:", class: "form-label" %> <!-- Label for accessibility -->
+    <%= f.text_area :content, rows: 3, class: "form-control", placeholder: "Write your message..." %>
+  </div>
+  <%= f.submit "Send", class: "btn btn-primary" %>
+<% end %>

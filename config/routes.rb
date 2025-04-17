@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :attachments, only: [:create, :destroy]
     resources :project_threads, path: 'threads' do
-      resources :messages, only: [:new, :create, :destroy]
+      resources :messages, only: [:new, :create, :destroy, :show]
     end
   end
 
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get 'about', to: 'home#about'
   get 'contact', to: 'home#contact'
+  get "/search", to: "search#index", as: :search
 
   # Sessions
   get "/login", to: "sessions#new"

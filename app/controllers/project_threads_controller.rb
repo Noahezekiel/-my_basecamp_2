@@ -1,7 +1,7 @@
 class ProjectThreadsController < ApplicationController
   before_action :set_project
   before_action :set_thread, only: [:show, :destroy]
-
+  
   def new
     @thread = @project.project_threads.new
   end
@@ -20,8 +20,10 @@ class ProjectThreadsController < ApplicationController
   end
 
   def show
-    # @thread is now correctly set by before_action
-  end
+    @project = Project.find(params[:project_id])
+    @thread = @project.project_threads.find(params[:id])
+    @messages = @thread.messages.includes(:user).order(created_at: :asc)
+  end    
 
   def destroy
     @thread.destroy
@@ -39,6 +41,6 @@ class ProjectThreadsController < ApplicationController
   end
 
   def thread_params
-    params.require(:project_thread).permit(:title, :content)
+    params.require(:project_thread).permit(:title, :content, :description)
   end
 end

@@ -34,13 +34,15 @@ class UsersController < ApplicationController
   end
 
   def set_admin
-    @user.update(admin: true)
-    redirect_to @user
+    user = User.find(params[:id])
+    user.update(admin: true)
+    redirect_to dashboard_path(user), notice: "#{user.name} is now an admin."
   end
-
+  
   def remove_admin
-    @user.update(admin: false)
-    redirect_to @user
+    user = User.find(params[:id])
+    user.update(admin: false)
+    redirect_to dashboard_path(user), alert: "#{user.name} is no longer an admin."
   end
 
   def authorize_admin!

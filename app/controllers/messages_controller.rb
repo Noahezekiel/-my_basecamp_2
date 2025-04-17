@@ -8,12 +8,15 @@ class MessagesController < ApplicationController
     def create
       @message = @thread.messages.new(message_params)
       @message.user = current_user
+      
       if @message.save
         redirect_to project_project_thread_path(@project, @thread), notice: 'Message posted successfully.'
       else
+        Rails.logger.debug "❌ Message creation failed: #{@message.errors.full_messages.join(', ')}"
         render :new
       end
     end
+    
   
     def destroy
       @message = @thread.messages.find(params[:id])

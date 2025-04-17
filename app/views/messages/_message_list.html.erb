@@ -1,0 +1,13 @@
+<% if messages.any? %>
+  <% messages.each do |message| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <strong><%= message.user.name %></strong>
+        <p class="mb-2"><%= message.content %></p>
+        <small class="text-muted"><%= message.created_at.strftime("%b %d, %Y at %H:%M") %></small>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-muted fst-italic">No messages yet. Start the conversation below.</p>
+<% end %>
