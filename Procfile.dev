@@ -1,5 +1,2 @@
 web: ruby bin/rails server
-css: ruby bin/rails tailwindcss:watch
-
-css: bin/rails tailwindcss:watch
-css: yarn watch:css
+css: bin/rails assets:precompile
