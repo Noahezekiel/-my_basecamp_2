@@ -13,6 +13,7 @@
     <!-- Import Bootstrap CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
   </head>
 
   <body>
@@ -112,8 +113,9 @@
     <% end %>
 
     <% flash.each do |key, message| %>
-      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %>">
+      <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
         <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <% end %>
 
@@ -123,9 +125,10 @@
       <%= yield %>
     </main>
 
+    <!-- Footer -->
+    <%= render "shared/footer" %>
+
     <!-- Optional: Add Bootstrap JS -->
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
-    <%= render "shared/footer" %>
-    
   </body>
 </html>
