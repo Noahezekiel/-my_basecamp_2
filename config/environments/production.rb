@@ -4,6 +4,11 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
+
+  config.require_master_key = true
+  config.assets.compile = false
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+
   config.enable_reloading = false
 
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
