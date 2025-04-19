@@ -1,2 +1,2 @@
 web: ruby bin/rails server
-css: bin/rails assets:precompile
+
