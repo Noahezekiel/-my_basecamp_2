@@ -6,7 +6,8 @@ Rails.application.configure do
   # Code is not reloaded between requests.
 
   config.require_master_key = true
-  config.assets.compile = false
+  config.assets.compile = true
+  config.assets.css_compressor = nil
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   config.enable_reloading = false
