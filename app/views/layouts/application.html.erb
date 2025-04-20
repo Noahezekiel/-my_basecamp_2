@@ -9,10 +9,15 @@
     <%= csp_meta_tag %>
     <%= yield :head %>
 
+    <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap Icons via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    
+
     <!-- Your application CSS -->
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
 
@@ -21,10 +26,10 @@
   </head>
 
   <body>
-    <!-- ✅ MOVE TO _navbar.html.erb -->
+    <!-- ✅ Navbar (moved to partial) -->
     <%= render "shared/navbar" %>
 
-    <!-- Flash Messages -->
+    <!-- ✅ Flash Messages -->
     <% flash.each do |key, message| %>
       <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
         <%= message %>
@@ -32,18 +37,18 @@
       </div>
     <% end %>
 
-    <!-- Main Content -->
+    <!-- ✅ Main Content -->
     <main class="container mt-5">
       <%= yield %>
     </main>
 
-    <!-- Footer -->
+    <!-- ✅ Footer -->
     <%= render "shared/footer" %>
 
-    <!-- Bootstrap JS Bundle -->
+    <!-- ✅ Bootstrap JS via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
 
-    <!-- Application JS -->
+    <!-- ✅ Your Application JS -->
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
   </body>
 </html>
