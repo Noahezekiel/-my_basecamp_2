@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      # Redirect to the same 'dashboard' path, which will handle role-based rendering
+      puts "Session set: #{session[:user_id]}"
       redirect_to dashboard_path
     else
       flash[:alert] = "Invalid email or password"
