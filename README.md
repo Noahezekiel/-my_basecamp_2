@@ -43,7 +43,9 @@ By default, the app will be available at http://localhost:3000
 Once the project is set up and running, users can interact with the application based on their roles and permissions.
 1. Roles & Permissions
 I have two types of Users, regular User and Admin user.
-Admin Users have full access to manage other users.
+Admin Users have full access to manage other users and the first admin was created through terminal 
+email: nnooaahh24@gmail.com passworg: 123456.
+
 Regular Users have access to their personal dashboard.
 Role-based access control is implemented to restrict unauthorized actions.
 2. Navigation
