@@ -9,6 +9,16 @@ class ProjectThreadsController < ApplicationController
   def edit
     @project = Project.find(params[:project_id])
     @project_thread = ProjectThread.find(params[:id])
+  end 
+  
+  def update
+    @project_thread = @project.project_threads.find(params[:id])
+  
+    if @project_thread.update(thread_params)
+      redirect_to project_path(@project), notice: 'Thread updated successfully.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end  
 
   def create

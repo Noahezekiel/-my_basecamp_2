@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
     before_action :set_thread
+    before_action :set_message, only: [:edit, :update, :destroy]
   
     def new
       @message = @thread.messages.new
@@ -22,6 +23,14 @@ class MessagesController < ApplicationController
       @project_thread = ProjectThread.find(params[:project_thread_id])
       @message = Message.find(params[:id])
     end
+
+    def update
+      if @message.update(message_params)
+        redirect_to project_project_thread_path(@project, @thread), notice: 'Message updated successfully.'
+      else
+        render :edit
+      end
+    end
   
     def destroy
       @message = @thread.messages.find(params[:id])
@@ -39,5 +48,11 @@ class MessagesController < ApplicationController
     def message_params
       params.require(:message).permit(:content)
     end
+    
+    def set_message
+      @message = @thread.messages.find(params[:id])
+    end
+    
   end
+
   
