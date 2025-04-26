@@ -6,6 +6,11 @@ class ProjectThreadsController < ApplicationController
     @thread = @project.project_threads.new
   end
 
+  def edit
+    @project = Project.find(params[:project_id])
+    @project_thread = ProjectThread.find(params[:id])
+  end  
+
   def create
     @thread = @project.project_threads.new(thread_params)
     if @project.user == current_user || current_user.admin?
@@ -30,6 +35,7 @@ class ProjectThreadsController < ApplicationController
     redirect_to @project, notice: 'Thread deleted.'
   end
 
+  
   private
 
   def set_project

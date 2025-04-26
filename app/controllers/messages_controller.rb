@@ -16,7 +16,12 @@ class MessagesController < ApplicationController
         render :new
       end
     end
-    
+
+    def edit
+      @project = Project.find(params[:project_id])
+      @project_thread = ProjectThread.find(params[:project_thread_id])
+      @message = Message.find(params[:id])
+    end
   
     def destroy
       @message = @thread.messages.find(params[:id])
