@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :attachments, only: [:create, :destroy]
+    resources :project_memberships, only: [:create]
     resources :project_threads, path: 'threads' do
       resources :messages, only: [:new, :create, :edit, :update, :destroy, :show]
     end

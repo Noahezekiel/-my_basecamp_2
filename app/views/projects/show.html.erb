@@ -1,10 +1,28 @@
-<div class="container my-5">
+<div class="container my-5"> 
 
   <!-- Project Header -->
   <div class="bg-white shadow-sm border rounded p-4 mb-5">
     <h1 class="display-5 fw-bold text-center mb-3"><%= @project.title %></h1>
     <p class="lead text-muted text-center"><%= @project.description %></p>
   </div>
+
+  <!-- Invite Form (visible only to project creator) -->
+  <% if current_user == @project.user %>
+    <div class="bg-white p-4 border rounded shadow-sm mb-5">
+      <h2 class="h5 text-primary">Invite User to Project</h2>
+      <%= form_with url: project_project_memberships_path(@project), method: :post, local: true do %>
+        <div class="row g-2 align-items-end">
+          <div class="col-md-8">
+            <%= label_tag :email, "User Email", class: "form-label" %>
+            <%= email_field_tag :email, nil, class: "form-control", placeholder: "Enter user email", required: true %>
+          </div>
+          <div class="col-md-4">
+            <%= submit_tag "Invite", class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <!-- Attachments Section -->
   <div class="bg-light p-4 border rounded shadow-sm mb-5">
@@ -60,6 +78,19 @@
     <% else %>
       <p class="text-muted fst-italic">No threads yet. Be the first to start a discussion!</p>
     <% end %>
+  </div>
+
+  <!-- Member List -->
+  <div class="bg-light p-4 border rounded shadow-sm mt-5">
+    <h2 class="h5 text-secondary mb-3">Project Members</h2>
+    <ul class="list-group">
+      <% @project.project_memberships.includes(:user).each do |membership| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= membership.user.name %> (<%= membership.user.email %>)
+          <span class="badge bg-secondary text-capitalize"><%= membership.role %></span>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
 </div>

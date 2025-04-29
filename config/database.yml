@@ -4,18 +4,36 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+# development:
+#   <<: *default
+#   database: my_basecamp_2_development
+#   username: my_basecamp_2
+#   password: 'let me in'
+#   host: localhost
+#   port: 5432
+
+# test:
+#   <<: *default
+#   database: my_basecamp_2_test
+#   username: my_basecamp_2
+#   password: 'let me in'
+#   host: localhost
+#   port: 5432
+
+
 development:
   <<: *default
   database: my_basecamp_2_development
-  username: my_basecamp_2
-  password: 'let me in'
+  username: postgres
+  password: '419000'  # whatever password you set when you installed PostgreSQL
   host: localhost
   port: 5432
+
 
 test:
   <<: *default
   database: my_basecamp_2_test
-  username: my_basecamp_2
+  username: postgres
   password: 'let me in'
   host: localhost
   port: 5432
