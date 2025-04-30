@@ -54,10 +54,12 @@
   <div class="bg-white p-4 border rounded shadow-sm">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="h4 text-success mb-0">💬 Project Threads</h2>
-      <% if current_user == @project.user || current_user.admin? %>
+      <% membership = @project.project_memberships.find_by(user: current_user) %>
+      <% if current_user == @project.user || (membership && membership.role == "admin") %>
         <%= link_to "New Thread", new_project_project_thread_path(@project), class: "btn btn-success" %>
       <% end %>
     </div>
+
 
     <% if @project.project_threads.any? %>
       <% @project.project_threads.each do |thread| %>
@@ -86,11 +88,15 @@
     <ul class="list-group">
       <% @project.project_memberships.includes(:user).each do |membership| %>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-          <%= membership.user.name %> (<%= membership.user.email %>)
-          <span class="badge bg-secondary text-capitalize"><%= membership.role %></span>
+          <div>
+            <%= membership.user.name %> (<%= membership.user.email %>)
+            <span class="badge bg-secondary text-capitalize"><%= membership.role %></span>
+          </div>
+          <% if current_user == @project.user && membership.user != @project.user %>
+            <%= button_to "Remove Member", project_project_membership_path(@project, membership), method: :delete, data: { confirm: "Are you sure you want to remove this member?" }, class: "btn btn-sm btn-outline-danger" %>
+          <% end %>
         </li>
       <% end %>
     </ul>
   </div>
-
 </div>

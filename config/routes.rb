@@ -3,13 +3,19 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :attachments, only: [:create, :destroy]
-    resources :project_memberships, only: [:create]
+    resources :project_memberships, only: [:create, :destroy]  # <-- Updated line
     resources :project_threads, path: 'threads' do
       resources :messages, only: [:new, :create, :edit, :update, :destroy, :show]
     end
   end
+  
 
   resources :users
+
+  namespace :admin do
+    get "users/index"
+    get "users", to: "users#index", as: "users"
+  end
 
   # Dashboard route (renders the same view based on user role)
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'

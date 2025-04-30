@@ -1,0 +1,33 @@
+<!-- app/views/admin/_user_table.html.erb -->
+<h2 class="h4 mb-3">Registered Users</h2>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td class="text-capitalize"><%= user.role %></td>
+          <td>
+            <div class="d-flex flex-wrap gap-2">
+              <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+              <% if user.admin? %>
+                <%= button_to 'Remove Admin', remove_admin_path(user), method: :post, class: "btn btn-sm btn-warning text-white" %>
+              <% else %>
+                <%= button_to 'Make Admin', set_admin_path(user), method: :post, class: "btn btn-sm btn-success" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

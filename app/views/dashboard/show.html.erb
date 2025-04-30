@@ -1,45 +1,25 @@
-<!-- app/views/dashboard/show.html.erb -->
-
 <% if current_user&.admin? %>
   <!-- Admin Dashboard -->
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-body">
-        <h1 class="h3 mb-4">Welcome to the Admin Dashboard, <%= current_user.name %> 👑</h1>
-        <p class="text-muted mb-4">Manage users, projects, and other admin tasks below.</p>
+        <div class="bg-primary text-white p-4 rounded mb-4 shadow-sm">
+          <h1 class="h3 mb-2">Welcome to the Admin Dashboard, <%= current_user.name %> 👑</h1>
+          <p class="mb-0">
+            As an administrator, you have full control over user roles, project management, threads, and more.
+            Use the navigation menu to manage the system and ensure everything runs smoothly.
+          </p>
+        </div>
 
-        <!-- Admin Users Table -->
-        <h2 class="h4 mb-3">Registered Users</h2>
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover align-middle">
-            <thead class="table-light">
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @users.each do |user| %>
-                <tr>
-                  <td><%= user.name %></td>
-                  <td><%= user.email %></td>
-                  <td class="text-capitalize"><%= user.role %></td>
-                  <td>
-                    <div class="d-flex flex-wrap gap-2">
-                      <%= button_to 'Delete', user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
-                      <% if user.admin? %>
-                        <%= button_to 'Remove Admin', remove_admin_path(user), method: :post, class: "btn btn-sm btn-warning text-white" %>
-                      <% else %>
-                        <%= button_to 'Make Admin', set_admin_path(user), method: :post, class: "btn btn-sm btn-success" %>
-                      <% end %>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+        <div class="text-muted">
+          <ul>
+            <li>🔐 <strong>Manage Users:</strong> Assign or revoke admin access, and remove inactive accounts.</li>
+            <li>📁 <strong>Oversee Projects:</strong> Monitor all ongoing projects and support your team’s collaboration.</li>
+            <li>💬 <strong>Moderate Discussions:</strong> Manage project threads and maintain a productive environment.</li>
+          </ul>
+          <p class="mt-3">
+            Visit the <%= link_to "Users Management Page", admin_users_path, class: "text-decoration-underline" %> to start managing users now.
+          </p>
         </div>
       </div>
     </div>
@@ -51,7 +31,9 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <h1 class="h3 mb-3">Welcome, <%= current_user.name %> 👋</h1>
-        <p class="text-muted mb-4">This is your personal dashboard. View your projects, manage your profile, and stay on top of your work.</p>
+        <p class="text-muted mb-4">
+          This is your personal dashboard. View your projects, manage your profile, and stay on top of your work.
+        </p>
 
         <div class="row">
           <!-- Projects Box -->
@@ -83,6 +65,7 @@
 <% else %>
   <!-- Guest View -->
   <div class="text-center py-5">
-   
+    <h2>Welcome to MyBaseCamp</h2>
+    <p>Please <%= link_to "sign in", new_session_path %> or <%= link_to "register", new_user_path %> to get started.</p>
   </div>
 <% end %>
