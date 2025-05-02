@@ -18,6 +18,7 @@ class ProjectMembershipsController < ApplicationController
         redirect_to @project, alert: "User with that email not found."
       end
     end
+  
 
     def promote
       membership = @project.project_memberships.find(params[:id])
@@ -44,6 +45,7 @@ class ProjectMembershipsController < ApplicationController
         redirect_to project_path(@project), notice: "#{membership.user.name} was removed from the project."
       else
         redirect_to project_path(@project), alert: "Project owner cannot be removed."
+      end
     end
   
     private
